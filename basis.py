@@ -55,6 +55,7 @@ class Base():
                 raise ValueError("The number have invalid __digits.")
         for digit in self.__digits:
             self.__digits_inverse[self.__digits[digit]] = digit
+        self.__clear_zeros()
 
     def decimal_to_base(self, number, base: int = None, max_length_after_comma: int = 8) -> str:
         """Converts a decimal number to a new given base."""
@@ -111,6 +112,11 @@ class Base():
             raise ValueError("Invalid maximum length after comma value.")
         self.__value = self.decimal_to_base(self.__value_check(), base, max_length_after_comma)
         self.__base = base
+        self.__clear_zeros()
+
+    def __clear_zeros(self):
+        while self.__value[-1] == "0":
+            self.__value = self.__value[:-1]
 
     def __eq__(self, number) -> bool:
         if isinstance(number, Base):
